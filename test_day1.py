@@ -1,3 +1,5 @@
+from helpers import read_inputs
+
 example_inputs = [
     "L68",
     "L30",
@@ -10,12 +12,6 @@ example_inputs = [
     "R14",
     "L82",
 ]
-
-
-def read_inputs(path: str = "day1.txt") -> [str]:
-    with open(path, "r") as f:
-        inputs = f.readlines()
-    return inputs
 
 
 class Day1:
@@ -122,5 +118,5 @@ def test_day1_part2_examples():
 
 
 day1 = Day1()
-day1.part1(read_inputs())
-day1.part2(read_inputs())
+day1.part1(read_inputs("day1.txt"))
+day1.part2(read_inputs("day1.txt"))
