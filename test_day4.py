@@ -18,17 +18,16 @@ class Day4:
     def __init__(self, grid: [list[str]] = []):
         self.grid = grid
 
-    def part1(self):
+    def traverse(self, remove_accessible: bool) -> int:
         result = 0
-        print(self.grid)
         for r, row in enumerate(self.grid):
             for c, col in enumerate(row):
                 if (self.grid[r][c]) != "@":
                     continue
                 neighbours = self.find_surrounding(r, c)
-                print(f"row {r} col {c} neighbours: {neighbours}")
                 if sum(1 for n in neighbours if n == "@") < 4:
-                    print(f"row {r} col {c} is accessible")
+                    if remove_accessible:
+                        self.grid[r][c] = "."
                     result += 1
 
         return result
@@ -50,11 +49,29 @@ class Day4:
 
         return result
 
+    def part1(self):
+        return self.traverse(remove_accessible=False)
+
+    def part2(self):
+        result = 0
+        while True:
+            accessible = self.traverse(remove_accessible=True)
+            if accessible == 0:
+                break
+            result += accessible
+        return result
+
 
 def test_part1():
     day4 = Day4(list(map(list, example_inputs)))
     assert day4.part1() == 13
 
 
+def test_part2():
+    day4 = Day4(list(map(list, example_inputs)))
+    assert day4.part2() == 43
+
+
 day4 = Day4(list(map(list, read_inputs("day4.txt"))))
 print(f"{day4.part1()}")
+print(f"{day4.part2()}")
